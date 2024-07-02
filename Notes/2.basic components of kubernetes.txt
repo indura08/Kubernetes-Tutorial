@@ -1,0 +1,57 @@
+1.Pod
+-----
+A Pod is the smallest deployable unit in Kubernetes. It can contain one or more containers that share storage, network, and a specification for how to run them. Pods are the atomic unit on the Kubernetes platform. It is also can be identified as abstraction over container. Usually 1 application per pod
+
+Each pod has its own ip address each pod can communicate with each other with using those ip addresses. Pods can easily be died because of various reasons like if the application inside pod dies the od will die and new one will created in that place and it will have a brand new ip addreses
+
+
+2.Node
+-------
+A node is a single machine (virtual or physical) in the Kubernetes cluster. Each node runs Pods and is managed by the master components. There are two types of nodes:
+
+Master Node: Manages the cluster and coordinates all activities.
+Worker Node: Where the actual application workloads are run.
+
+3. Service
+-----------
+A Service defines a logical set of Pods and a policy by which to access them. Services enable loose coupling between dependent Pods. Kubernetes supports several types of Services, including ClusterIP (default), NodePort, LoadBalancer, and ExternalName.Each pod ahs its own service keep that in mind. Pods communicate with each other using a service
+
+4. Ingress
+-----------
+Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+
+5.ConfigMap and Secret
+---------------------
+ConfigMap: Used to store non-confidential configuration data in key-value pairs. It allows you to decouple configuration artifacts from image content to keep containerized applications portable.configMap usually has configuration data like urls of database or some other services that you use. so e hinda apta dan ape database eke url eka hdissiywath change kloth ehma aphu image hdla eka push krla eka aaphu pull krgena nattnna wenwane , me config map eka hinda  ehma krnna one nha mokd config map eke e wage configuration data thiyna hind apita gihilla e config eke thiyna dtatabse url eka wans krma aathi database url eka wenas kala kiyla kiynna .
+
+Secret: Similar to ConfigMap, but used for storing sensitive information such as passwords, OAuth tokens, and SSH keys. Dan ape project ekaka database username password wage sensitive credentials store krnne nha config Map eke ekat thami Kubernetes eke secrets thiynne. secrets wal e wage sensitive data store krla thiygnna  , me sensitive data base64 encoded krla thiyna hinda safe 
+
+
+6.Volume
+--------
+
+A Volume is a directory, possibly with some data in it, which is accessible to the containers in a Pod. Kubernetes supports several types of volumes, including emptyDir, hostPath, and persistentVolumeClaim.
+it basically attaches a physical storage on a hard drive to your pods. that storage could be on local machine , server node where the pod is running or etc
+
+
+
+7.ReplicaSet
+-----------
+A ReplicaSet ensures that a specified number of identical Pods are running at any given time. It is often used by Deployments to manage the number of replicas.
+me replica scn eka aawilla api hitmu hdissiyewath pod ekk die unoth , application eka run wena nawttnne nathuwa digtm pawtawagena yana eka eka pod eka replicate krnwa e kiynne nikna copy wage.
+
+8.Deployment
+-------------
+A Deployment provides declarative updates to applications. It manages Pods and ReplicaSets to ensure that the desired number of Pods are running and available.
+
+9.StatefulSet
+--------------
+
+A StatefulSet is used to manage stateful applications, which require some sort of persistent storage. It is used for applications that need unique network identifiers and stable, persistent storage. Datatbase smbnda dewal aniwareyenma create wenna one statefulsets haraha , depolyements haraha newei samnyen statefulset ekka wada krna eka amrui .
+
+more components:
+=============
+
+1. etcd: etcd is a consistent and highly-available key-value store used as Kubernetes' backing store for all cluster data.
+
+2.Cluster: A cluster is the highest level of abstraction. It consists of a set of worker machines, called nodes, that run containerized applications.
