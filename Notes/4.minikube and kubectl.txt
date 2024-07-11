@@ -1,0 +1,50 @@
+Minikube
+========
+
+Minikube is a tool that lets you run a single-node Kubernetes cluster on your local machine. Think of it as a mini version of a Kubernetes cluster that you can use for learning, development, and testing purposes.
+
+Key Points:
+-------------
+1.Local Kubernetes Cluster: Minikube sets up a Kubernetes cluster on your laptop or desktop, so you can experiment and learn how Kubernetes works without needing a cloud provider.
+
+2.Single Node: It runs everything on a single node (your local machine), making it easy to get started without any complex setup.
+
+3.Learning and Development: Ideal for trying out Kubernetes features, developing containerized applications, and testing deployments before moving to a larger, more complex cluster.
+
+How to Use:
+-------------
+
+Install Minikube: Download and install Minikube on your machine.
+Start the Cluster: Run a command to start the Minikube cluster.
+Deploy Applications: Use Minikube to deploy and manage your containerized applications locally.
+
+kubectl
+=======
+
+kubectl is the command-line tool that allows you to interact with a Kubernetes cluster. It’s like a remote control for managing and operating Kubernetes.
+
+Key Points:
+
+Command-Line Interface: kubectl provides commands to deploy applications, inspect and manage cluster resources, and view logs of running applications.
+
+Communicates with API Server: When you run a command using kubectl, it sends that command to the Kubernetes API server, which then executes the necessary actions.
+
+Manage Cluster Resources: With kubectl, you can create, update, delete, and get information about your cluster's resources, such as Pods, Services, Deployments, and more.
+
+
+
+Basic Commands:
+---------------
+
+kubectl get pods: Lists all the Pods in the cluster.
+kubectl create -f my-deployment.yaml: Creates resources defined in a YAML file.
+kubectl delete service my-service: Deletes a specific service.
+kubectl logs my-pod: Fetches the logs of a specific Pod.
+
+
+minikube install krddi:
+-----------------------
+
+Minicube install krla apita eka use krnna nm hypervisor ekk thiynna one machine eke hypervisor ekk kiynne: A hypervisor is software that allows you to create and run virtual machines (VMs) on your computer. A virtual machine is like a computer within your computer.
+
+Why Minikube Needs a Hypervisor: Minikube needs a hypervisor to create a virtual machine where it can run a mini version of a Kubernetes cluster. This VM acts like a separate, isolated environment on your computer where you can play with Kubernetes without affecting your main operating system.

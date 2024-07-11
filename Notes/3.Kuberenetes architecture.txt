@@ -24,8 +24,11 @@ These nodes run the actual application workloads.
 Key components include:
 
 Kubelet: An agent that ensures the containers in Pods are running as expected.
+
 Container Runtime: Software responsible for running containers (e.g., Docker, containerd).
+
 Kube-Proxy: Maintains network rules on nodes and enables network communication to Pods.
+
 Pods: The smallest deployable units in Kubernetes that can contain one or more containers.
 
 
@@ -37,17 +40,21 @@ API Server:
 Central control point for all operations.
 Receives REST commands and updates the state in etcd.
 Acts as the gateway to the cluster.
+
 etcd:
 
 Stores the configuration data and the state of the cluster.
 Provides consistent and reliable storage.
+etcd is the cluster brain
+
 Controller Manager:
 
 Includes several controller functions (e.g., node controller, replication controller, endpoints controller).
 Ensures that the cluster’s desired state matches its current state.
+
 Scheduler:
 
-Monitors resource usage and places Pods on appropriate nodes based on their requirements and resource availability.
+Monitors resource usage and places Pods on appropriate nodes based on their requirements and resource availability. scheduler decides on which node new pod should be scheduled 
 
 
 Worker Node Components:
@@ -111,3 +118,5 @@ diagram
 |  |       Pod        |  |     |  |       Pod        |  |
 |  +------------------+  |     |  +------------------+  |
 +------------------------+     +------------------------+
+
+27

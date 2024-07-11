@@ -1,0 +1,101 @@
+meke wadipurama commands tikakui saha Q and A thiyewi
+
+Minikube works
+---------------
+
+Minikube
+---------
+
+to start minikube type minikube start , mehma ghuwam automa minikube ek docker drive eka detect krgena eka hypervisor ekak bwat harwagena , attama meke theruma menna me code ek ghuwa kiyna eki (mage local machine eke) " minikub run --vm-drive=docker" . namuth mama minkube run --vm-drive=Hyper-V fghla ynwa 
+
+
+
+
+Q: minikube start --vm-driver=Hyper-v what happen if i run this command ?
+
+A: When you run the command minikube start --vm-driver=hyperv, Minikube will use Hyper-V as the hypervisor to create the virtual machine that will run the Kubernetes cluster. Here’s a step-by-step breakdown of what happens:
+
+Step-by-Step Process:
+Initialization:
+
+Minikube checks your system to ensure that Hyper-V is installed and enabled.
+Creating a Hyper-V Virtual Machine:
+
+Minikube creates a new virtual machine using Hyper-V.
+It allocates resources (CPU, memory, disk space) for this virtual machine based on the defaults or your configuration.
+Downloading Kubernetes Components:
+
+Minikube downloads the necessary Kubernetes components (like the Kubernetes API server, controller manager, scheduler, etcd) and prepares them to run inside the virtual machine.
+Starting the VM:
+
+Minikube starts the Hyper-V virtual machine.
+The virtual machine boots up and runs a lightweight operating system (usually a small Linux distribution) that hosts the Kubernetes components.
+Setting Up Kubernetes:
+
+Minikube sets up the Kubernetes components inside the VM.
+It configures the networking and storage required for Kubernetes to function.
+Configuring kubectl:
+
+Minikube updates your kubectl configuration to point to the new local cluster.
+This allows you to run kubectl commands against the Minikube cluster.
+Cluster Ready:
+
+Minikube displays a message indicating that the Kubernetes cluster is ready to use.
+You can now deploy applications and run Kubernetes commands within this local cluster.
+Example Output:
+You might see output similar to this:
+
+😄  minikube v1.20.0 on Microsoft Windows 10 Pro
+✨  Using the hyperv driver based on user configuration
+👍  Starting control plane node minikube in cluster minikube
+🔥  Creating Hyper-V VM (CPUs=2, Memory=4000MB, Disk=20000MB) ...
+🐳  Preparing Kubernetes v1.20.2 on Docker 20.10.6 ...
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+
+Q: minikube start --vm-driver=docker what happn whn i execute this command?
+
+A:When you execute the command minikube start --vm-driver=docker, Minikube will use Docker to create the environment needed to run a Kubernetes cluster on your local machine. Here’s a step-by-step explanation of what happens:
+
+Step-by-Step Process:
+Initialization:
+
+Minikube initializes and checks your system to ensure Docker is installed and running.
+Cluster Creation:
+
+Minikube uses Docker to create a single-node Kubernetes cluster.
+Instead of creating a full virtual machine (VM) using a traditional hypervisor, it sets up Kubernetes components directly within Docker containers.
+Downloading Kubernetes Components:
+
+Minikube downloads the necessary Kubernetes components, such as the Kubernetes API server, controller manager, scheduler, and etcd, and runs them inside Docker containers.
+It also sets up a container for the Kubernetes node (Kubelet) and networking components.
+Starting Kubernetes:
+
+Minikube configures and starts the Kubernetes components inside Docker containers.
+It sets up the networking and storage components required for Kubernetes to function.
+Configuring kubectl:
+
+Minikube updates your kubectl configuration to use the new local cluster.
+This allows you to run kubectl commands against the Minikube cluster.
+Cluster Ready:
+
+Once everything is set up, Minikube displays a message indicating that the cluster is ready.
+You can start deploying applications and running Kubernetes commands.
+What You Get:
+Local Kubernetes Cluster: A fully functional Kubernetes cluster running locally using Docker containers.
+kubectl Access: The ability to interact with the local cluster using kubectl commands.
+Efficiency: Faster startup times and lower resource usage compared to using traditional virtual machines.
+Example Output:
+You might see output similar to this:
+
+😄  minikube v1.20.0 on Darwin 11.2.3
+✨  Using the docker driver based on user configuration
+👍  Starting control plane node minikube in cluster minikube
+🚜  Pulling base image ...
+🔥  Creating Kubernetes in docker container with (CPUs=2) (2 available), Memory=4000MB (4000MB available) ...
+🐳  Preparing Kubernetes v1.20.2 on Docker 20.10.6 ...
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default

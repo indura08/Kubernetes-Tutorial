@@ -1,0 +1,30 @@
+1.To start a minikube cluster : " minikube start --vm-driver=hypervisorName"
+
+e kiynne dan wada krla iwar wela aphu restart kraddi elaga dwasedi eth ghnne me code ekmai , ethkot ara docker eke thiyna container eka run wenwa 
+
+
+2.kubectl get nodes : mekn wenne danata run wena nodes tika pennnwa	
+
+3.kubectl get services: mekn danat thiyna okkoma services tika pennwa 
+
+4.kubectl create deployement nginx-depl --image=nginx: meka thiynn deploymne tekk start krnna :base command ek : " kubectl create deployment depName ImageName options1 options2 .." 
+
+apita samnyen pods niknam hdnna bha , apita krnna puluwan de thami deployment ekk hdna ekk , ethkot e deployment ekt adlwa pods hadenwa, Deployment has all the blue prints for creating pods, ihatha command eka thami most basic configuration eke mokda ke name eki image eki denwa use krnnaone 
+
+5.kubectl get pods: mekn danat thiyna pos okkoma denwa 
+
+6.kubectl edit deployment nginx-depl: deployment ekt adlwa changes monw hari krnna one nm menna meka ghuwwaki
+
+7.kubectl describe pod mongo-depl-887485654-jjjql: mekn wenne dnata monog deployment eke run wena pod ekak wisthra blagnna
+
+8.kubectl exec -it nginx-depl-85c9d7c5f4-gpkvl -- bin/bash: mekn wenne debugging walt adlwa container eka athult gihilla bash commands run krnna puluwan wena ek.
+
+9.kubectl delete deployment DeplName: mekn wenne deployment eka delete kla daana eka 
+
+10. kubectl apply -f nginx-deployment.yaml : mekn wenn deployment ekkt adlal wa resource config saha anik config wenna widiy gana liypu nginx-delpoymet.yaml file eka deployment ekat adla krgena e file eke thiyna deawal anuwa deployment eka change krnwa , eta passe apita deployment eke mokk hari change krnna unoth me nginx-deployment.yaml file ek change krama athi
+
+
+11. 	kubectl delete -f nginx-service.yaml
+	kubectl delete -f nginx-deployment.yaml
+
+menna me command walin api deepu yaml configuration files deployment ekn delete krnna puluwan 

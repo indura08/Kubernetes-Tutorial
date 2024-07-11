@@ -1,0 +1,17 @@
+A Kubernetes YAML configuration file for a deployment specifies the desired state for the deployment, including the number of replicas, the container images to use, ports to expose, and other settings. Here’s a comprehensive guide to a Kubernetes deployment YAML configuration file with detailed explanations for each part:
+
+configuration file have 3 parts 
+
+1.metdata part: component name etc 
+
+2.specifications: selector , ports etc
+
+3.status : it is automatically generates and added by Kubernetes. methandi Kubernetes blnwa configuration file ekt anuwa desired status eka mokdada saha actual status eka . ethkot desired eki actual eki samana nattnm. status eka saren sare update wenwa 
+
+me configuration file eke samnyen thiynne yaml format ekn.
+
+deployement ekt ghna configuration file eka athule pod ekt adalawa one wena configuration ekath thiynwa , ekiynne pod eke image eka mokdda , eka run wena port eka mokdda wage dewal thiynwa athulath wela.
+
+example configuration.yaml file ekk thiynwa kubernats tutorial folder eka athule gihin blnna 
+
+
