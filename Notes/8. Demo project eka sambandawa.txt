@@ -1,0 +1,38 @@
+step by step api project eka krpu widiy meke thiynwa
+=====================================================
+
+step1: mulinma mongo.yaml file ek hduwa development eka configure krnna 
+
+step2: Create secret
+
+	mekedi mulinma mongo-secret.yaml ile eka haduwa api eke thiyna mongo-root-password saha usernme api hdgatte vs code ekn git bash command line ekk open krgena menna me command eka ghuwa: 
+
+	' echo -n 'username' | base 64 '
+	' echo -n 'password' | base 64 '
+
+dan meke password eka = password username = username , eka pai encode krla thiynne base64 values wlaat mokda nattanm atta ewa danne nha koima welwakwath secret fle eke
+hmawelema mathk thiygnna one deyk thami secret.yaml eka mulin apply wela thiynna one deployment.yaml ekt kalin
+
+
+step 3 : secret eka apply kala menna me command ekn 
+	" kubectl apply -f mongo-secret.yaml "
+
+step 4 : secret ekt adlwa thibba username password deployment eke configurations walt add krla deployment eka apply krnwa menna me command ekn:
+	
+	" kubectl apply -f mongo.yaml " - methndi error ekk awa seector wenuwat selectors kiyla daala mama , eka hduwa 
+
+
+step 5 : creating a internal service: so that other components and other pods can talk to this mongodb. eka hdla eka apply krnwa 
+
+step 6: Monog express deployment eki eket service eki , config map eki hdnwa hdla ewa apply krnwa . e kiynne api kalin kale mongo db eka deployment ekk hdla, service secret hdla iwar krpu eki dan krnne mongo express ek hdna eka ekat service ekk hduwa eka external service ekk widiyt haduwe
+
+
+$ kubectl get service
+NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+kubernetes              ClusterIP      10.96.0.1        <none>        443/TCP          5d20h
+mongo-express-service   LoadBalancer   10.96.66.56      <pending>     8081:30000/TCP   13s
+mongodb-service         ClusterIP      10.109.221.244   <none>        27017/TCP        67m 
+
+
+
+

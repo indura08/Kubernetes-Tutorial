@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef: 
+              name: mongodb-secret
+              key: mongo-root-password
+
+---   #menna me line 3 theruma awilla document separation kiyna eka . ekiynne yaml wala apita puluwan document kipyaka eka file ekemliynna , ithin methanin pahalath thyan document eka already athulath wenwa   
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec: 
+  selector:
+    app: mongodb          #methna name eka kil denne pod eke name eka mona pod ektd me service ek thiynne wage ekk thami methn enne
+  ports:
+    - protocol: TCP
+      port: 27017         #meka service port eka 
+      targetPort: 27017   #meka containerPort of Deployment
+      
+#kubectl apply -f mongo.yaml
+#deployment.apps/mongodb-deployment unchanged
+#service/mongodb-service created an me service eka apply krddi me file ekami apply krnne kubectl ka hraha , ethkot enne menna me wage output ekk , service ek hadnea deployment ek unchanged

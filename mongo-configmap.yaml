@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: mongodb-configmap
+data:
+    database_url: mongodb-service
+
+
+#meke structure ek
+#kind eka = configmap jathiye ekk
+#metadata name = any random name 
+#data = the acctual content in key value pairs , ekiynne config map eke thiynna one sensitve nowna crednetials apita kamathi key names ekkala value widiyt pair krnwa 
+
+
+#config map must already be in K8s cluster when referencing it 
