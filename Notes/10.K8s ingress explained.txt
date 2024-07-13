@@ -1,0 +1,77 @@
+Kubernetes Ingress Explained in Simple Terms
+============================================
+
+Imagine you have a house with several rooms. Each room represents a service in your Kubernetes cluster, like a website, an API, or a database. Now, let's say you want visitors to be able to access these rooms. You need a front door and a set of directions to guide them to the right room.
+
+In Kubernetes, Ingress acts like the front door and the set of directions. It manages external access to your services, typically HTTP and HTTPS traffic.
+
+Key Concepts of Ingress
+--------------------------
+
+Ingress Resource: This is a set of rules that defines how external HTTP/S traffic should reach your services. It's like a map that tells visitors (requests) how to get to the correct room (service).
+
+Ingress Controller: This is the doorman that reads the rules (Ingress Resource) and makes sure visitors are directed correctly. The Ingress Controller handles the actual traffic routing based on the rules defined in the Ingress Resource.
+
+Why Use Ingress?
+-----------------
+
+Without Ingress, you would need to create individual Service objects of type LoadBalancer or NodePort for each service you want to expose outside the cluster. This can get messy and expensive. Ingress simplifies this by providing a single entry point for your cluster and a way to define routing rules.
+
+e kiynne dn api krmu demo project ekth api kale nodePort ekak ekkala external service ekk wage hdla 127.64.23.21:5611 wage uri ekkin thami web browser ekn open krgtte application eka. namuth user knk pitin access kraddi eka https:/my-web-app.com wage url ekkin pennan one https wage secure protocol ekk use krnnth one , eka krnne  attatama e ingress ekn.
+
+example ekk widiyt api blmu external service ekkai ingress ekei thiyna wenas
+
+external service ekaka .yaml configuration file ek:
+----------------------------------------------------
+
+apiVersion: v1
+kind: Service
+metadata:
+	name:myapp-external-service
+sepc:
+	selector:
+		app:myapp
+	type:LoadBalancer
+	ports:
+		- protocol: TCP
+		  port: 8080
+		  targetPort: 8080
+		  nodePort:35010
+
+menna meke kind eka service deela sepec.type eka loadbalancer dunnama ithin eke hteruma meka external service ekk kiyna eki, ehmath nattnm api me service eka public ekt open krnwa by assigning a ip address.
+
+ingress configuration .yaml file ekk example:
+---------------------------------------------
+
+apiVersion: v1
+kind: Ingress
+metadata:
+	name:myapp-external-service
+sepc:
+	rules:
+	- host: my-app.com	//mekt one namk dunnahki e wagema thami me domain ekat adlwa ynna one node eke ip address ekt meka map krnnath one
+	http:			//meke theruma me url ekt yna http kiyna protocol eka newei methna kiynne meka 2 weni step eki saha meken incoming requests gets forward to internal service kiyla
+		paths:
+		- backend:
+			serviceName: my-app-internal-service
+			servicePort:8080
+meke hariytm internal service ekt hdpu ingress ekak saha e adla internal service eke .yaml file codes dek thiynwa screenshots file eke ingressVsInternalService namin
+
+
+---------------------------------------------------------------------------------
+methanin mehm ingress ek define krlata thwa thiynwa me ingress eka hariytm configure krnna one krnna one wada.
+
+apita implementation ekk one me ingres kea configure krnna nm .me implementation ekt kiynne ingress controller kiyla
+
+Steps to Use Ingress
+====================
+
+1.Install an Ingress Controller: Depending on your environment, you might use an NGINX Ingress Controller, a Traefik Ingress Controller, or another type. This is usually installed via a Helm chart or a YAML manifest.
+
+methna me ingress controller eka kiynne attatama thwath pod ekk wage ekk or collection of pods
+
+ingress controller eke function thami evaluate all the rules that you have defined in your cluster
+
+2.Create an Ingress Resource: Define your routing rules in a YAML file and apply it to your cluster.
+
+3.Access Your Services: Once set up, you can access your services via the URLs defined in your Ingress Resource.

@@ -23,8 +23,12 @@ step 4 : secret ekt adlwa thibba username password deployment eke configurations
 
 
 step 5 : creating a internal service: so that other components and other pods can talk to this mongodb. eka hdla eka apply krnwa 
+internal service walt type eka clusetIp kiyna ekai , eka default type eki, external ewat thami loadbalancer kiyl type eka denne 
 
 step 6: Monog express deployment eki eket service eki , config map eki hdnwa hdla ewa apply krnwa . e kiynne api kalin kale mongo db eka deployment ekk hdla, service secret hdla iwar krpu eki dan krnne mongo express ek hdna eka ekat service ekk hduwa eka external service ekk widiyt haduwe
+
+mongo-express walt service eka hdla external service ekk widiyt nodePort ehma dunnata ipaddress ekk hambenn nha apita borwser en open krgnna. eka thmi mthna pahal thiyna waguwe external ip kiyna ekt external service ekk una mongo-express-service external ip address ekk natte , kiynne ekt thaama ekk hambela nha pending wenne eki.
+ithin meket ip address ekk gnna nm minikube ee menna me command eka ghla hdgnna one: " minikube serice nameOfTheService " mehm    
 
 
 $ kubectl get service
@@ -32,6 +36,25 @@ NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)   
 kubernetes              ClusterIP      10.96.0.1        <none>        443/TCP          5d20h
 mongo-express-service   LoadBalancer   10.96.66.56      <pending>     8081:30000/TCP   13s
 mongodb-service         ClusterIP      10.109.221.244   <none>        27017/TCP        67m 
+
+dan meke mongo express eke api aluth database ekk hdnna request ekk dunnama wenne men me piliwelatai wada tika :
+
+mongo-express external service
+		|
+		|
+		|
+		|
+mongo express pod ekt ynwa
+		|
+		|
+		|
+		|
+mongodb internal service ekt ynwa
+		|
+		|
+		|
+		|
+	mongodb pod ekt ynwa	
 
 
 

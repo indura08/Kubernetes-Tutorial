@@ -1,0 +1,107 @@
+Kubernetes Namespaces Explained
+===============================
+
+Kubernetes namespaces are a way to divide cluster resources between multiple users or applications. Think of namespaces as separate environments within your Kubernetes cluster, much like how you might have different folders or directories on your computer to organize files.
+
+Why Use Namespaces?
+
+1.Organization: They help organize and manage complex applications by grouping resources logically.
+
+2.Separation: They provide a level of isolation between different projects, teams, or environments (like development, testing, and production).
+
+3.Resource Management: They enable you to allocate resources like CPU and memory to different namespaces, preventing one application from hogging all the resources.
+
+4.Access Control: They allow you to set permissions and access controls at a namespace level, providing better security and management.
+
+Basic Concepts
+
+Default Namespace: If you don't specify a namespace, Kubernetes uses the default namespace.
+
+System Namespaces:
+kube-system: Contains Kubernetes system components like the API server, scheduler, and controller manager.
+kube-public: A special namespace readable by all users, typically used for publicly accessible resources.
+kube-node-lease: Contains lease objects used for node heartbeat data.
+Custom Namespaces: You can create your own namespaces to organize your resources.
+
+Creating and Managing Namespaces
+Create a Namespace
+You can create a namespace using a YAML file or directly from the command line.
+
+Using YAML:
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-namespace
+
+----------------------------------------
+
+Namespaces organise resources in namespaces. You can think of namespace as a virtual cluster inside a cluster
+
+namespaces warga
+===============
+
+1.meka gana uda note eke wistharayak thynwa, additionaly: this is not meant for our use, we do not create or modify  in kube system
+
+2.kube-public: it means the publicly accessible data. A configmap which contains cluster information.
+
+3.kube-node-lease: This tells heartbeats of nodes. each node has associated lease object in namespace. determines the availability of a node
+
+
+apiota ape namespaces hdnnath puluwan krama 2 kata. 
+
+1. command ekn hdnna widiya: 
+
+	" kubectl create namespace nameOFMyNameSpace "
+
+2.configuration file ekk magin namespace ekk hdna widiya(recommended)
+
+meka thami hodm widiya namespace ekk hdnwa nm:
+
+example .yaml file
+
+apiVersion:v1
+kind: ConfigMap
+metadata:
+	name: mysql-configmap
+	namespace:my-namespace
+data:
+	db_url: mysql-service.database
+
+why we need namespace:
+
+usecase creating our own namespaces:
+
+1. api krnna yna project eke godak resources thiyenwa nm ewa okoma cluster eka athule default kiyna normally hdena namespace eke nm thiynne samahar welwa walata manage krnna amaru wenwa . e wage welawal walata api namespace ekk hdla eka eka resources e e namespaces walt danwa. example database namespace eke database resources , monitoring namespace, elastic stack namespace , nginx-ingress namespace etc. 
+
+podi project ekk nm attama namespaces hda hdan krnna one default eke okkoma thiygttm thi hodtm. namuth podi loku onma project ekkt namespaces hdgena ewat hariynna resources bedagena karama project eka lesi 
+
+2.imagine ekama cluster eke teams deck wada krwa. eka team ekk deployment ekk krnwa my-app naming. eta passe anik team ekath my-app kiyna naminma deployment ek krnwa , ehma unama dewaniyt deploy krpu deployment ek palaweni ek override krnwa. ewage welwal walta namespaces deck team dekt hdla deela project ek krgena yna eka lesi
+
+3.Resource sharing : staging and development kiyl jathi dekkt kdgttma resources eyal dentm wena wena use krnna puluwan
+
+4.application eke versions jati kiypayak thye nm e ekin ekt wena wenama namespaces hdla deela maintain krna ynna puluwan. mekt kiynwa resource sharing: blue/green deployment
+
+4.To limit the resources and access to namespaces when you working with multiple teams. ekiynne mehmai dan teams deck wada krnwa nm eka cluster ekk athule namespace deck , apita puluwan eylwa limit krnna eyalwa assign krla thiyna namespace eke withrk create update delete operations resources walt krnna , meken eka team ekk anik team eke namespace eke dewal ekka accidently eka eka dewal wena eka nawttagnna puluwan. e wagema mekn puluwan apita eka ek namespace eka cpu , ram, storage eka kochcr pramnyk gttama athida wage balala ewa limit krnna e kiynnne resource quota widiyt me namespace eke team ekt mechri denne , anik namespace eke team ekt mechcri dene wage wen krnna 
+
+create component in namespace
+=============================
+
+samnyen api mokak hari component ekk hduwam namespace ek define kale nattnm ekat ibema default kiyna namespace ek labila default namespace ekt add wenwa. apita namespace ekk deela component hdnwa nm mehmai hdnne 
+
+widi deck thiynwa:
+
+1.command ekn:
+
+	" kubectl apply -f mysql-configmap.yaml --namespace=my_namespace "
+
+menna me wage adlal component eka apply krddi namespace name eke namespace name ekk dunnama e namespace ekt me component ek add wenwa. me eka widiyak
+
+
+2.configuration ml file wala namespace: namespaceName eka widiyt denna puluwan. ekiynne metadata thule name ekat passse namespace kiyla key ekkt value ek widyt denna puluwan namespace name ek apita one krna .
+
+me kram deken hodm widiya thami dewani widiya.
+
+how to change active namespace:
+--------------------------------
+
+kubenernetes aldi eka labenne nha uth kubens kiyla library ekk thiynwa eka install krgena krnna puluwan.. eka gana thwa tikk hoyla blnna
