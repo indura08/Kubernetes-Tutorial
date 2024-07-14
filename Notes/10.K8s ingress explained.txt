@@ -70,7 +70,9 @@ Steps to Use Ingress
 
 methna me ingress controller eka kiynne attatama thwath pod ekk wage ekk or collection of pods
 
-ingress controller eke function thami evaluate all the rules that you have defined in your cluster
+ingress controller eke function thami evaluate all the rules that you have defined in your cluster. dan ingress controller ekk ptna gannokota eka eka jathiye ingress controllers thiynwa. namuth Kubernetes walin dena ingress controller ekk thiynwa ' K8s Nginx implementation ' kiyla ekk. apita utomatically ingres controller eka widiyt install krgnna puluwan menna me minikube command ekn:
+
+	" minikube addons enable ingress "
 
 2.Create an Ingress Resource: Define your routing rules in a YAML file and apply it to your cluster.
 

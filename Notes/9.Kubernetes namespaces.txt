@@ -1,3 +1,5 @@
+danata cluster eke thiyna namespaces tika okoma ganna nm command ek: " kubectl get ns "
+
 Kubernetes Namespaces Explained
 ===============================
 

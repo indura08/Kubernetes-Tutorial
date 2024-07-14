@@ -1,0 +1,24 @@
+step1: First, install the Kubernetes Dashboard using the following command:
+	
+	" kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml "
+
+step2: Create a service account and cluster role binding to access the Dashboard:
+
+	" kubectl create serviceaccount dashboard-admin-sa
+kubectl create clusterrolebinding dashboard-admin-sa \
+  --clusterrole=cluster-admin \
+  --serviceaccount=default:dashboard-admin-sa
+ "
+
+
+step3: Get the token for the service account:
+
+	" kubectl -n default describe secret $(kubectl -n default get secret | grep dashboard-admin-sa | awk '{print $1}') "
+
+step4: if you want to expose the Dashboard via a NodePort, you can modify the service type:
+
+	" kubectl -n kubernetes-dashboard edit service kubernetes-dashboard "
+
+step 5: uda command eka ghuwam notepad file ekk enwa eke spec yatathethiyna type kiyna key eke value eka clusterIp kiyl hiynne eka , NodePort kiyla maru krnna 
+
+thats it now check namespaces by typing kubectl get ns and kubernetes-dashboard will be there
