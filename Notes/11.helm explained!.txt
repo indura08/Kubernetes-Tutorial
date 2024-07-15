@@ -1,0 +1,81 @@
+Helm is a package manager for Kubernetes, similar to how package managers like apt for Ubuntu or yum for CentOS manage packages for their respective operating systems. Helm simplifies the deployment and management of applications on Kubernetes by using reusable, customizable "charts."
+
+Key Concepts:
+Charts:
+
+Charts are packages of pre-configured Kubernetes resources.
+They contain all the necessary files to run an application or service on Kubernetes.
+A chart typically includes templates, configuration values, and dependencies.
+Repositories:
+
+Helm charts are stored in repositories.
+You can find, download, and install charts from these repositories.
+The official Helm chart repository is Artifact Hub, but there are many others.
+Releases:
+
+A release is a running instance of a chart.
+When you install a chart, Helm creates a release and deploys the resources defined in the chart.
+
+Benefits of Helm:
+Simplified Management: Helm makes it easy to deploy, upgrade, and manage complex applications.
+Reusability: You can use and share charts across different projects and teams.
+Customization: Charts are highly configurable, allowing you to override default values to suit your needs.
+Version Control: Helm maintains version histories of your releases, allowing you to roll back to previous versions if needed.
+
+Basic Helm Commands:
+Install Helm:
+
+First, you need to install Helm on your local machine. Follow the instructions on the official Helm website.
+
+Add a Repository:
+
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+
+Search for a Chart: helm search repo stable
+
+Install a Chart:
+helm install my-release stable/mysql
+
+This installs the MySQL chart from the stable repository and names the release my-release.
+
+List Releases:
+helm list
+
+Upgrade a Release:
+helm upgrade my-release stable/mysql
+
+Uninstall a Release:
+helm uninstall my-release
+
+
+Helm Chart Structure:
+A typical Helm chart directory structure looks like this:
+
+my-chart/
+  Chart.yaml          # Metadata about the chart (name, version, description)
+  values.yaml         # Default configuration values
+  charts/             # Subcharts (dependencies)
+  templates/          # Kubernetes resource templates
+  README.md           # Documentation
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dan me helm wala thiyna eka thawa deyk thami meka udath thiynwa , me helm kiyna ek Template engine ekk widiyt use krnna puluwan. ekiynne dan api hithmu api cluster ekk hnwa microservices godak thiyna. e e microservice ekt api configuration yaml file ek gaane liynna giyoth kiypayak liynna wenwane. ehma nokra apit puluwan eka yaml file ekk liynna hama microservice ektm. eke eka ek microservice anuwa wenas wenna one dewal (harit nikna names wage) apita puluwan placeholders daala e e micoervice ekt adldl wena widiyt eka define krnna.
+
+example:
+
+spec:
+	containers:
+	- name: {{.values.container.name }}  //menna me wage dammahki placeholders , apita adla microservice ek anuwa me walt ena agyn wenas krgena configure krgnna thiynne 
+
+me krame attama useful wenwa, continuous delivery and continuous integration part waldi (ci/cd)
+
+
+me helm eke chart structure eka gana udin thiynwa , e wagema eta wada detail wistharayk thiynwa screenshotfile eke helChartStrcture.png eke 
+
+
+
+
+
+
