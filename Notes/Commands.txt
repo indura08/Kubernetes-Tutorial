@@ -1,0 +1,6 @@
+mulu project ekema ghpu eka eka jathiye command: 
+
+
+1.kubectl describe ingress dashboard-ingress -n kubernetes-dashboard
+
+2.

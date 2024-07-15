@@ -76,4 +76,29 @@ ingress controller eke function thami evaluate all the rules that you have defin
 
 2.Create an Ingress Resource: Define your routing rules in a YAML file and apply it to your cluster.
 
+mekedikrnne ingress configuration ekt adlwa .yaml file ekk hdnwa ingress rules ekkala eta passe e ingress rules walt anuwa thaami pitin , ekiwwe web broser ekn open krgnna one api. mekedi api host name dunnt madi : thwa deyk krnna thiynwa eka elaga step eke 
+
 3.Access Your Services: Once set up, you can access your services via the URLs defined in your Ingress Resource.
+
+access krnna kalin api hdpu host name ekt adlwa apita ingress ekn dena ip address eka e api dena host name ekt assign krnna one meka krnne menna mehmi
+
+step1: mulinma api menna me command ek ghla ingress eke apita dena ip address eka blagnnwa :
+
+	" kubectl get ingress -n ingressNameEka"
+
+step2 eta passe eke thiyna ip address ekai ekt adlwa api deepu host name eki api denna one c/windows/system32/drivers/etc folder eke athule thiyna hodt kiyna file eke menna mehma
+
+<ip-address-eka> hostname eka
+
+ehma deela save krnna one , eta passe puluwan apita browser ekn api deepu host name ek deela eka open krgnna web browser ekn
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+apita dan samnyen host name ekat amathrawa url ek widiyt ghuwoth /product wage kohetwath yanne nha 404 error ekk pennwane, ekat krnna thiynne default backend ekk hdna eka 
+
+e wagema thami api hdna mokk hari project ekk multiple paths thiyna widiyt ingress ek hdnna one nm eka hdna widiya screenshot flder eke multiplepaths.png eke thiynwa. eka habi parna version eke eka , eka aluth version ekat hariynna hdgnna one  
+
+
+e wagema thami http request nathuwa https request hdngnna one nm ekat tls certificate ek hdgnna oen tls kiynne = A TLS certificate (Transport Layer Security certificate) is a digital certificate used to establish a secure, encrypted connection between a client and a server. TLS certificates are essential for HTTPS websites and other secure communication protocols. ehtkot ek krnneth ingress configuration yaml file ekemai eka krna widiyt tlsCertificate.png eke thiynwa screenshot folder eke 
