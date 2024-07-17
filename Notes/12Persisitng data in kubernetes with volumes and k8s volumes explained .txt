@@ -1,0 +1,134 @@
+What is a Volume in Kubernetes?
+===============================
+
+In Kubernetes, a volume is a way to provide storage to your applications running in pods. Think of it like a folder or disk that your application can use to read and write data. This storage is not tied to the lifespan of a single container within the pod, so even if the container stops and restarts, the data in the volume remains.
+
+Why Do We Need Volumes?
+=======================
+
+Containers in a pod are usually ephemeral, meaning they don’t keep data if they stop or restart. Volumes help solve this by providing persistent storage that lasts beyond the container's lifecycle.
+
+Types of Volumes
+================
+
+Kubernetes supports several types of volumes. Here are some of the most common ones:
+
+EmptyDir:
+
+An EmptyDir volume is created when a pod is assigned to a node and exists as long as the pod is running on that node.
+It's empty when the pod starts and can be used for temporary storage like scratch space, caches, or data shared between containers in the same pod.
+Data is lost when the pod is removed.
+
+HostPath:
+
+A HostPath volume mounts a file or directory from the host node’s filesystem into your pod.
+Useful for access to host resources like logs.
+Tightly coupled with the host, which means it's not portable across different nodes.
+
+PersistentVolumeClaim (PVC):
+
+A PVC is a request for storage by a user. It is used to request a PersistentVolume (PV).
+PV is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes.
+More advanced and allows for dynamic provisioning of storage. The data in PVCs remains even if the pod is deleted and can be moved to another pod.
+
+ConfigMap and Secret:
+
+These types of volumes provide a way to inject configuration data or sensitive information (like passwords) into your pods.
+They are used for configuration management and not for storing application data.
+
+NFS (Network File System):
+
+An NFS volume allows you to mount an NFS share to your pod.
+Useful for sharing data between multiple pods and providing persistent storage that can be accessed across nodes.
+
+How to Use Volumes in Kubernetes
+Here is a simple example of how you can use a volume in a pod specification:
+
+Pod YAML with EmptyDir Volume:
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: my-volume
+  volumes:
+  - name: my-volume
+    emptyDir: {}
+
+What is Meant by Data Persisting in Kubernetes with Volumes?
+============================================================
+
+When we talk about data persisting, we mean that the data remains available even if the container or pod stops, restarts, or moves to a different node. Volumes provide a way to achieve this:
+
+Persistence: Data stored in a volume remains available as long as the pod exists, even if containers within the pod restart.
+
+Shared Storage: Multiple containers in the same pod can share the same volume, allowing them to read and write data to a common storage location.
+
+Durability: Certain types of volumes, like PersistentVolumeClaims (PVCs), ensure that your data is stored on durable storage that survives pod restarts and can be reused by new pods.
+
+Examples of Why You Need Persistent Storage
+=-----------------------------------------=
+Databases: When running a database inside a container, you don’t want to lose all your data if the container restarts. Using a volume ensures the database data persists.
+
+Logs: Applications often need to write logs to a persistent location so they can be analyzed later.
+
+Uploads: If users upload files (e.g., images, documents) to your application, these files need to be stored persistently.
+
+Configuration and Secrets: Sometimes you need to store configuration files or sensitive data (like passwords) that your application needs to access.
+
+How Kubernetes Volumes Help
+---------------------------
+EmptyDir: Useful for temporary storage within a pod. Data is lost when the pod is deleted but remains through container restarts.
+
+HostPath: Allows you to use a file or directory on the host node. Data remains as long as it’s on the same node.
+
+PersistentVolumeClaim (PVC): The most robust option, allowing for durable storage that persists beyond the lifecycle of pods and can be moved between nodes.
+
+ConfigMap and Secret: Allow injecting configuration data or sensitive information into pods securely.
+
+ewagem thmi:
+
+me volumes uth awilla cluster resourceekk , cpu, am wagema . saha api anik resources hadaddi configure .yaml files liwwa wagema meketh liynwa yaml file ekk , ehma thami volume ekk attama api hdganne.
+
+volumes gana screenshot folder eke thiynwa anthimat volume.png kiyla nam walin daala 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Persistent volume claims (PVC)
+==============================
+
+What is a Persistent Volume Claim (PVC)?
+-----------------------------------------
+A Persistent Volume Claim (PVC) is like a request for storage in Kubernetes. Imagine it as a way for your application to say, "Hey, I need some space to store my data, and I need it to stick around even if I restart."
+
+
+Why Do We Need PVCs?
+--------------------
+Containers are temporary, but sometimes applications need permanent storage for things like databases, user uploads, or logs. PVCs help by providing a way to request and use this kind of storage.
+
+How PVCs Work
+--------------
+Request Storage: Your application (through its pod) asks for storage by creating a PVC.
+
+Match with Persistent Volumes (PVs): Kubernetes looks for a Persistent Volume (PV) that matches the request. PVs are chunks of storage provided by your cluster, kind of like pre-allocated storage units.
+
+Binding: If a suitable PV is found, it gets "bound" to the PVC. This means the storage is reserved for that particular PVC, and your application can start using it.
+
+attama mekdi wenne me pvc kiyna eka kiynneth .yaml file ekkin hdpu configuration resource ekk. meke thiynwa eka eka keys sha ewat values . meke speial de thami meke thiynwa storage kiyla ekk , e storage eke thiynwa storage agyak example 10gi. ethkot mokk hari persistant volume ekk cluster ekn storage volumes illaddi pvc eka hraha thami yanne. pvc eke deela thiyna storage volume eki pv ekkin illana volume ekai samnai nm e adla pv ekt volume ek habenwa. mekedi habi pv eke yaml file ekth danna one ewa kipayak thiynwa ewa okkoma screenshot eke pv vs pvc .png eke thiynwa 
+
+meka wena widiya hariytm kiwwoth step by step:
+
+	1. Pods requests volume through the pv claim enam pvc.
+	2. claims tries to find a volume in cluster that satisfied the claim which means , claim ekn blnwa cluster eke thiyna volume atharin claim eke thiyna gb gaanata match wena volume ek mokdda kiyla 
+
+	3. volume has the actual storage backend.
+
+note that claims must be in the same namespace as the pod using the claim
+
+me pvc use krna eke wasiya thami an api user knk widiyt cluster ek use krddi (cluster administrator kiyla thwa knk innwa a edev ops engineer knk) apita kohed volume eka thiynne , me volume eke ida kocchrd wage dewal bala bala welwa nasthi krnna one nha, claim ek liwwa galapne volume eka claim ek hraha hoygtta volume ek use kra echchri
