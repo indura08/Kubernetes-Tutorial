@@ -1,0 +1,42 @@
+What is a StatefulSet?
+=======================
+
+A StatefulSet in Kubernetes is a type of controller that is used to manage stateful applications. Stateful applications are those that need to maintain their state across restarts and scaling operations. This is different from stateless applications, which do not retain any state.
+
+Why Do We Need StatefulSets?
+============================
+
+StatefulSets are useful for applications that require:
+
+1.stable, unique Network indetifiers:Each instance of the application (pod) needs a unique network name that doesn't change.
+
+2.Stable, Persistent Storage: Each pod needs its own persistent storage that remains even if the pod is rescheduled to a different node.
+
+3.Ordered, Graceful Deployment and Scaling: Pods need to be created, updated, or deleted in a specific order, one at a time.
+
+How StatefulSets Work
+=====================
+
+1.Stable Network Identifiers: Each pod in a StatefulSet gets a unique, stable network identity. This means even if a pod is deleted and recreated, it will have the same network name.
+
+2.Persistent Storage: Each pod can be associated with its own PersistentVolume, ensuring that the data remains consistent even if the pod is rescheduled.
+
+3.Ordered Operations: Pods are created, updated, and deleted in a predictable order. For example, if you scale up a StatefulSet, it adds one pod at a time in sequence.
+
+Simple Analogy
+==============
+
+Think of StatefulSets like numbered hotel rooms:
+
+Unique Identity: Each room has a unique number that doesn't change (stable network identifiers).
+Personalized Space: Each room has its own storage for guests' belongings (persistent storage).
+Orderly Management: The hotel staff clean and prepare the rooms in a specific order (ordered operations).
+
+
+methna thwat mathk thiygnna one deyk thami
+
+	stateless applications api deploy krnne using deployment and stateful application ekk (ekiynne database application ekk MySQL, monogdb wage) ekk api deploy krnne using statefulset.
+
+Question 1: dan nmeka dakkama ena prashnyk yhami ai me sateless ewa deploy krnna deploymentuth statful ewa deploy kenna stateful ewath use krnne kiyla. ekat hethuwa thami statless ewa e kiynne smanyen oya frontend wage request ewana ewaye replicasets manage krnna lesi , replicasets delete kraddi ehma k8 walin randomly ekk selsct krla delete krla dnwa, namuth staful ewaye replicas ehama lesiyen delete krnna bha. mokda statful wala thiyna replicasets identical naha. replicas for stateful ar created from same specification, but not interchangable eki mehma jathi deck one deployment walt 
+
+Question 2: elagat ena prshne thami dan ai mehm meke identity eka sahenn wadagath enne  identity eka moka unath apita wade krgnna puluwanne ai ewa interchanges ble natte deployment walal replica sets waldi wage ? ekat hethuwa thami dan stateul applications waldi replicas hama ekam ekama widiytwad kloth ehma database wal ehma data inconsistency athi wenwa. ethkot eka nathi krgnna master replica ek widiyt ekk thiynwa eken read write dekm puluwan, anik thiyna replicas walt puluwan read krnna withri ewa slave replicas ehmath nattnm worker replicas

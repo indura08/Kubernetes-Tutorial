@@ -132,3 +132,49 @@ meka wena widiya hariytm kiwwoth step by step:
 note that claims must be in the same namespace as the pod using the claim
 
 me pvc use krna eke wasiya thami an api user knk widiyt cluster ek use krddi (cluster administrator kiyla thwa knk innwa a edev ops engineer knk) apita kohed volume eka thiynne , me volume eke ida kocchrd wage dewal bala bala welwa nasthi krnna one nha, claim ek liwwa galapne volume eka claim ek hraha hoygtta volume ek use kra echchri
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+STORAGE CLASSES
+----------------
+
+What is a Storage Class in Kubernetes?
+=======================================
+
+A Storage Class in Kubernetes is like a blueprint or template for how storage should be provisioned. It defines different types of storage that your cluster can offer, such as fast SSD storage, regular hard drives, or network storage.
+
+Why Do We Need Storage Classes?
+===============================
+
+Different applications have different storage needs. Some might need super-fast storage for high performance, while others might just need a lot of space at a lower cost. Storage Classes let you define these different storage options and make it easy for your applications to request the right kind of storage.
+
+storage classes hdnneth yml configuration files walin.
+
+example: 
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+
+meke main ma part ek thami provisioner attribute ek, because it tells kuberenets which provisioner to be used for a specifi storage platfom or cloud provider to create the persistant volume component
+
+meketh pv pvc ekn request krnwa wagema storage classuth pv claims walin thami request krnne. storage class config yaml file eki ekat adala pvc yaml file config eki screen shot folder eke thiynwa example ekk ekan blagnna puluwan
+
+Simple Analogy
+--------------
+Think of Storage Classes like different types of hotel rooms:
+
+Storage Class: This is like the description of different hotel room types (e.g., a standard room, a deluxe room, a suite).
+PVC: This is like making a reservation and specifying which type of room you want.
+When you make a reservation (create a PVC) and say you want a suite (specify a Storage Class), the hotel (Kubernetes) knows what kind of room (storage) to prepare for you.
+
+so step by step process in storage class and wht storage classes do,
+
+	1. Pod claims storage via pvc
+	2. PVC request storage from SC
+	3. Storage class creates Persistent volume(PV) htat meets the needs of the claims
+
