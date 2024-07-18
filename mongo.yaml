@@ -44,6 +44,7 @@ spec:
     - protocol: TCP
       port: 27017         #meka ser   vice port eka 
       targetPort: 27017   #meka containerPort of Deployment
+#me ports kallata dlawa thiynne list ek listof ports, ekiynne dan me port eka list ekk mokd '-' symbol eka thiynwane , me list eke thiynne eka item kei , aaye list item ekk onnm '-' lakunen patna ganna wenwa 
       
 #kubectl apply -f mongo.yaml
 #deployment.apps/mongodb-deployment unchanged
