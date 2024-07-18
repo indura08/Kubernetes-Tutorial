@@ -42,7 +42,7 @@ spec:
     app: mongodb          #methna name eka kil denne pod eke name eka mona pod ektd me service ek thiynne wage ekk thami methn enne
   ports:
     - protocol: TCP
-      port: 27017         #meka service port eka 
+      port: 27017         #meka ser   vice port eka 
       targetPort: 27017   #meka containerPort of Deployment
       
 #kubectl apply -f mongo.yaml

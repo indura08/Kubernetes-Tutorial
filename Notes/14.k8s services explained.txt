@@ -1,0 +1,62 @@
+What is a Kubernetes Service?
+=============================
+
+A Kubernetes Service is an abstraction that defines a logical set of Pods and a policy by which to access them. Think of it as a stable way to reach your application components.
+
+Key Points About Services
+=========================
+
+1. Stable IP Address and DNS Name:
+
+Services give a stable IP address and DNS name, which remains constant even if the underlying Pods change. This makes it easier for other components to find and communicate with the service.
+
+2. Load Balancing:
+
+Services automatically distribute the traffic among the set of Pods, ensuring load balancing.
+
+3. types of Services:
+
+ClusterIP: Exposes the service internally within the cluster. This is the default type.
+
+NodePort: Exposes the service on each Node’s IP at a static port. Useful for simple external access. nodePort services are not secure since it is more open. and also it is not efficient. hodat mathk thiygnna node port nm production use cases walt yodagnne nha , one nm quickly mona hari test krnna one nm use kalata kmk nha 
+  
+LoadBalancer: Exposes the service externally using a cloud provider’s load balancer. Loadbalancer service automatically creates NodePort and clusterIp services.
+
+ExternalName: Maps the service to the contents of the externalName field by returning a CNAME record with its value.
+
+Headless Services: in Kubernetes are a special type of Service that doesn't provide load balancing or a stable IP address. Instead, they allow you to directly reach the individual Pods.
+
+amathara wadagath:
+-----------------
+
+LoadBalancer service is an extension of NodePort service
+NodePort service is an extension of clusterIp service
+
+mkekedi wenne emnna mehma scn ekk , dan api hithmuko statful pod kk thynwa kiyla like database wage, database kiwwam mongodb, MySQL, elasticsearch wage, ethkot e pod replica walt thiyna names identical nhane eka pia statfulset waldi katha kala , dan ehma database ekkt katha krnan unama replica set eke ekak thiynwa master pod replica ek saha thwa worker ewa thiynwa, ethkot methnadi master ekn withri database ekt data ewrite krnne, e wage welwa api request ekk ewwoth data write krnna , ethkot apit kiynna wenwa e master pod ekt thami apita ynn one mokda ekn withren data write krnne. ithin ehma specific pod replica ekk one unama api krnne service eke clusterIp attribute ekt danwa value eka widiyt None kiyla, ethkot wenne dns lookup for service eken single ip address ekk enma cluster ip address ekk return krnne nathuwa  pod ip address tika return krnwa. ann aehtnain apita master pod eke ip address eka selsct krgnna puluwan , e selsct krgnna widiyrth kram thiynwa 
+
+Example Scenarios
+-----------------
+ClusterIP
+
+Use Case: For internal communication within the cluster.
+Example: A backend service that only needs to be accessed by other services in the cluster.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dan samnyen api pod ekk hduwama ekat ip addreses ekka ssign wenwane , namuth e pod eka died unama e ip address eka naghi wela ynwa , ethkot aluthin ena e wenuwat ena pod ekt ip address ekka ssign krnna one , menna me wage wada wlt thami pod ekk one . sha loadbalancng walt , loose coupling waltath me services on wenwa
+
+
+dan samnyen cluster ekkt ingress ekk hraha request kk awama service ekt thami ingress ek request eka daanne. eta passe service ekn krnne e service ekt adlwa thiyna endpoint ekata ywanwa request ek. so methandi prshna deck enwa :
+
+	1. how does service know which pods to forward the request to: meke krnne selector attribute walin config yaml file eke thiynwa service configuration yaml file eke, e selctor  attribute ekn thami pods aduragnne mke me selecto ekt pod eke nama dana widiya saha pod ekt service eke selctor eke nama dana widya screenshot file e thiynwa how services identify certain pods to send request via selector attribute in servic's config.yaml file. dan pod ekt thiyna deployment config .yaml file eke labels yatathe thiyna app kiyna ekt adldl vlau ekservice ekeselector eke app ekt value ekw idiyt dunnama service ekn adurgnnw e adlal pod ek, ethkot e service ek endpoint ekk wenwa e pod ek.(e pod ekt adlawa replicaset eke thiyna hama pod ekkma endpoints wenwa)  
+
+	2. how does service knows which port to forward it to?   
+
+service eke apita port kiyna attribute ekt one port ankyak dunnahki mokda eka service port eka wena hinda , namuth targetPort kiyna attribute ekt adala pod eke container eka thiyna port eke port number eka dennama one. 
+
+me wagema thami dan api microservice app ekk use rknwa e microservice ekt database ekt request yawnna unama krnneth mekami. ethnadi microservie pod ek request eka ywanwa database service ekt , eta passe e request adlal preplica set eke pod ekk select krgena ekat responses ywanawa
+
+e wagema thami apita service ekaka multiports danna puluwan. e wage multiports dnawa nm e ports walt adla pod wala names danna one.
+
+
