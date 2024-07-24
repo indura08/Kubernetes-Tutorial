@@ -1,0 +1,7 @@
+step 1: mulinma docker image ekk hdla eka push kala , mn hithnne meka nm aniwaryai mokada kubernetets docker hub ekn push krgnnwa images tika.
+
+step2: eta passe deployment ekk hduwa menna me command ekn:	"kubectl create deployment k8s-web-hello --image=indura08/nodejs-project-to-practice-kubernetes:v1"
+
+step3 : hdpu deployment eka containercreating mode eke thibbe eka Running state ekt watenkn htiya
+
+step4: 

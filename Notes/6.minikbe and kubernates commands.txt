@@ -1,6 +1,6 @@
 1.To start a minikube cluster : " minikube start --vm-driver=hypervisorName"
 
-e kiynne dan wada krla iwar wela aphu restart kraddi elaga dwasedi eth ghnne me code ekmai , ethkot ara docker eke thiyna container eka run wenwa 
+e kiynne dan wada krla iwar wela aphu restart kraddi elaga dwasedi eth ghnne me code ekmai , ethkot ara docker eke thiyna container(cluster ekak eeka athatama) eka run wenwa 
 
 
 2.kubectl get nodes : mekn wenne danata run wena nodes tika pennnwa	

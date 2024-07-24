@@ -9,8 +9,6 @@ Minikube
 to start minikube type minikube start , mehma ghuwam automa minikube ek docker drive eka detect krgena eka hypervisor ekak bwat harwagena , attama meke theruma menna me code ek ghuwa kiyna eki (mage local machine eke) " minikub run --vm-drive=docker" . namuth mama minkube run --vm-drive=Hyper-V fghla ynwa 
 
 
-
-
 Q: minikube start --vm-driver=Hyper-v what happen if i run this command ?
 
 A: When you run the command minikube start --vm-driver=hyperv, Minikube will use Hyper-V as the hypervisor to create the virtual machine that will run the Kubernetes cluster. Here’s a step-by-step breakdown of what happens:
