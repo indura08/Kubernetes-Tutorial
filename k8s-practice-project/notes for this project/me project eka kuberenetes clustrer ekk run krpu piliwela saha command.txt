@@ -4,4 +4,8 @@ step2: eta passe deployment ekk hduwa menna me command ekn:	"kubectl create depl
 
 step3 : hdpu deployment eka containercreating mode eke thibbe eka Running state ekt watenkn htiya
 
-step4: 
+step4: eta passe hdpu deployment ekt cluster ip ekk hdnwa menna me command ekn :   " kubectl expose deployment k8s-web-hello --port=5000 "
+
+step5: eta passe kubectl get services gihilla baluwama  service ekk hdila thiynwa kalin code ekn ghpu
+
+step6 
