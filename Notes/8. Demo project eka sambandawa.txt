@@ -5,7 +5,7 @@ step1: mulinma mongo.yaml file ek hduwa development eka configure krnna
 
 step2: Create secret
 
-	mekedi mulinma mongo-secret.yaml ile eka haduwa api eke thiyna mongo-root-password saha usernme api hdgatte vs code ekn git bash command line ekk open krgena menna me command eka ghuwa: 
+	mekedi mulinma mongo-secret.yaml file eka haduwa api eke thiyna mongo-root-password saha usernme api hdgatte vs code ekn git bash command line ekk open krgena menna me command eka ghuwa: 
 
 	' echo -n 'username' | base 64 '
 	' echo -n 'password' | base 64 '
@@ -55,6 +55,9 @@ mongodb internal service ekt ynwa
 		|
 		|
 	mongodb pod ekt ynwa	
+
+
+me project eka web browser ekn gattama enwa username password denna , ekat denna one username= admin / password = pass
 
 
 

@@ -8,4 +8,29 @@ step4: eta passe hdpu deployment ekt cluster ip ekk hdnwa menna me command ekn :
 
 step5: eta passe kubectl get services gihilla baluwama  service ekk hdila thiynwa kalin code ekn ghpu
 
-step6 
+step6 ta passe miikube ip address eka rgen ssh docker@gattu_ip_adress eka ghla mokdda kala eka mage local machine eke krnna bha, e hinda mama kale menna me commnd eka ghuwa : 
+
+	
+	" minikube service k8s-web-hello " mekn , web browser ekn open krgnna puluwan una mage node js application eka , methna wela thibba awla thami , dan api e ip addreses ekn acccess krnna hdaddi node js application ekt api access krnna hdnne cluster ekn pita , cluster ekn pita acces krnw nm ingress one , api ingress hdla thibbe nhane thaama e hinda apit acluster eka ahtule access krnna one , kat thami ihatha command ek one
+
+
+step7: deployment ek scale kala replicas 4 kata ekat ghpu command eka : 	" kubectl scale deployement k8s-web-hello --replicas=4 "
+
+
+step8: eta passe meka nodePort type service ekk kala : eka kale menna me command ekn:
+
+	" kubectl expose deployment k8s-web-hello --type=NodePort --port=3000  "
+
+meka krnna kalin k, kalin thibba clusterIp type eke k8s-web-hello service ek delete kala , eka delete krla thami me aluth nodePOrt type eke service ek haduwe
+
+mekn hdenne nodePOrt type eke service ekkmeka minikube cluster ip eka hraha web browser ekn access krnna puluwan 
+
+ekiynne kubectl get svc ghuwam enwane service list eka menna me wage :
+
+NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+k8s-web-hello           NodePort       10.110.255.145   <none>        3000:32042/TCP   9s
+kubernetes              ClusterIP      10.96.0.1        <none>        443/TCP          18d
+mongo-express-service   LoadBalancer   10.96.66.56      <pending>     8081:30000/TCP   12d
+mongodb-service         ClusterIP      10.109.221.244   <none>        27017/TCP        12d
+
+meke k8s-web-hello eke 
