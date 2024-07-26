@@ -6,15 +6,15 @@ metadata:
     app: mongodb
 spec:
   replicas: 1
-  selector: 
+  selector:                   # Defines how to find the pods that belong to this Deployment.
     matchLabels:
       app: mongodb
-  template:
+  template:                   #The template for the pods created by this Deployment.
     metadata:
       labels:
         app: mongodb
-    spec:
-      containers:
+    spec:                     # Defines the specifications of the pod.
+      containers:             #containers: A list of containers that run in each pod.
       - name: mongodb
         image: mongo
         ports:
@@ -33,12 +33,13 @@ spec:
 
 ---   #menna me line 3 theruma awilla document separation kiyna eka . ekiynne yaml wala apita puluwan document kipyaka eka file ekemliynna , ithin methanin pahalath thyan document eka already athulath wenwa   
 
+#service: The Service exposes the MongoDB pod to the rest of the Kubernetes cluster, allowing other pods to access it.
 apiVersion: v1
 kind: Service
 metadata:
   name: mongodb-service
-spec: 
-  selector:
+spec:                       #Defines the desired state of the Service.
+  selector:               #Specifies the pods that the Service should expose.
     app: mongodb          #methna name eka kil denne pod eke name eka mona pod ektd me service ek thiynne wage ekk thami methn enne
   ports:
     - protocol: TCP
