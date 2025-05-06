@@ -2,7 +2,7 @@
 -----
 A Pod is the smallest deployable unit in Kubernetes. It can contain one or more containers that share storage, network, and a specification for how to run them. Pods are the atomic unit on the Kubernetes platform. It is also can be identified as abstraction over container. Usually 1 application per pod
 
-Each pod has its own ip address each pod can communicate with each other with using those ip addresses. Pods can easily be died because of various reasons like if the application inside pod dies the od will die and new one will created in that place and it will have a brand new ip addreses
+Each pod has its own ip address each pod can communicate with each other with using those ip addresses. Pods can easily be died because of various reasons like if the application inside pod dies the pod will die and new one will created in that place and it will have a brand new ip addreses
 
 
 2.Node
@@ -66,3 +66,4 @@ example explanation with my social media scenario i put to chatgpt : Imagine etc
 	Secrets and ConfigMaps, which hold sensitive data and configuration information.
 
 2.Cluster: A cluster is the highest level of abstraction. It consists of a set of worker machines, called nodes, that run containerized applications.
+

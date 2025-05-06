@@ -1,16 +1,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
-metadata:
-  name: dashboard-ingress
-  namespace: kubernetes-dashboard
-spec:
-  rules:
-  - host: dashboard.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix    #meken kiynne path '/' is a prefix path
-        backend: 
+metadata:                                   #metadata: This section provides metadata about the resource.
+  name: dashboard-ingress                   #name: The name of this Ingress resource is dashboard-ingress. You can use this name to refer to this Ingress in commands.
+  namespace: kubernetes-dashboard           #This tells Kubernetes which namespace this Ingress belongs to. Here, it's in the kubernetes-dashboard namespace.
+spec:                             #spec: This section defines the specification of the Ingress, i.e., what it should do
+  rules:                          #rules: This specifies the rules that define how traffic should be routed.
+  - host: dashboard.com           #host: This defines the hostname for which this Ingress rule applies. In this case, the Ingress will handle requests coming to dashboard.com.
+    http:                   #This indicates that the Ingress will handle HTTP traffic
+      paths:                #This section defines the paths and their corresponding backends (services) that will handle the requests.
+      - path: /             #This specifies the path for the rule. Here, / means that any request to dashboard.com will match this rule.
+        pathType: Prefix    #meken kiynne path '/' is a prefix path This tells Kubernetes how to match the path. Prefix means that any request that starts with / will match this rule
+        backend:                      #This specifies the backend (service) that should handle the requests matching this rule.
           service:
             name: kubernetes-dashboard
             port:

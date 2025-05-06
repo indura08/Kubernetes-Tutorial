@@ -1,0 +1,222 @@
+🔍 apiVersion: apps/v1
+-------------------------
+
+This line tells Kubernetes which version of the Kubernetes API to use for this object.
+
+apps/v1 means:
+
+You're using the apps API group.
+
+You're using version v1 of that API group.
+
+In Kubernetes, different types of objects (like Deployment, Service, Pod, etc.) are handled by different API groups and versions, and apiVersion ensures Kubernetes knows how to process the definition you're writing.
+
+📦 Why is apps/v1 used for a Deployment?
+--------------------------------------------
+
+Deployment is a workload controller, meaning it manages Pods and their lifecycle.
+
+As of Kubernetes v1.9+, the Deployment object is part of the apps API group and stable in version v1.
+
+So the proper and modern way to define a Deployment is:
+
+apiVersion: apps/v1
+kind: Deployment
+
+
+Older Kubernetes versions might have used:
+
+extensions/v1beta1 (deprecated)
+
+apps/v1beta1 (also deprecated)
+
+But you should always use apps/v1 now unless you're working with ancient Kubernetes versions from the Jurassic era. 🦖
+
+
+🚦 Why does this matter?
+--------------------------
+
+If you use the wrong or unsupported apiVersion, Kubernetes will reject your file.
+
+It helps Kubernetes know how to validate and interpret the structure of the object.
+
+💡 Simple analogy
+
+Imagine you hand in a form to the government.
+
+apiVersion is like saying: “This is Form 1040 from the 2023 tax year.”
+
+Without that, the clerk (Kubernetes) won’t know how to read your form correctly and might throw it out.
+
+
+🔹 Common Kubernetes apiVersion values by object type:
+--------------------------------------------------------
+
+
+
+| Kubernetes Object                    | apiVersion                     | Notes                                                   |
+| ------------------------------------ | ------------------------------ | ------------------------------------------------------- |
+| **Pod**                              | `v1`                           | Comes from the "core" API group                         |
+| **Service**                          | `v1`                           | Core group                                              |
+| **ConfigMap**                        | `v1`                           | Core group                                              |
+| **Secret**                           | `v1`                           | Core group                                              |
+| **Deployment**                       | `apps/v1`                      | Modern and stable version                               |
+| **StatefulSet**                      | `apps/v1`                      | For stateful applications                               |
+| **DaemonSet**                        | `apps/v1`                      | For running one pod per node                            |
+| **ReplicaSet**                       | `apps/v1`                      | Usually managed by Deployment                           |
+| **Ingress**                          | `networking.k8s.io/v1`         | Replaces old `extensions/v1beta1`                       |
+| **NetworkPolicy**                    | `networking.k8s.io/v1`         | For controlling network traffic                         |
+| **PersistentVolume**                 | `v1`                           | Core group                                              |
+| **PersistentVolumeClaim**            | `v1`                           | Core group                                              |
+| **Role / ClusterRole**               | `rbac.authorization.k8s.io/v1` | For RBAC (Role-Based Access Control)                    |
+| **RoleBinding / ClusterRoleBinding** | `rbac.authorization.k8s.io/v1` | For assigning roles                                     |
+| **HorizontalPodAutoscaler**          | `autoscaling/v2`               | Use `v2` for advanced scaling options                   |
+| **Job**                              | `batch/v1`                     | For one-time jobs                                       |
+| **CronJob**                          | `batch/v1`                     | For scheduled jobs; older versions used `batch/v1beta1` |
+
+
+
+
+
+API Versions more simplified
+_____________________________
+
+✅ What is apiVersion in Kubernetes?
+
+In Kubernetes, every YAML configuration file defines a type of object — like a Deployment, Service, Pod, etc.
+But Kubernetes is made up of many different APIs (like apps, networking, storage), and each API evolves over time with different versions (like v1, v1beta1, etc.).
+
+So:
+
+apiVersion tells Kubernetes **which version of the API** to use to create or manage the resource you’re defining.
+
+It's like saying:
+
+“Hey K8s, I’m giving you a Deployment, and I want you to use the API group apps, version v1, to handle it.”
+
+🚀 Now, let’s look at common apiVersions
+------------------------------------------
+
+1. v1 – Core API Group
+
+Used for: Pod, Service, ConfigMap, Secret, PersistentVolume, etc.
+
+Why: These are core resources — the foundation of Kubernetes — and they’re stable.
+
+No group name is specified because it’s part of the core API group.
+
+apiVersion: v1
+kind: Pod
+...
+
+
+2. apps/v1 – API Group for Deployments, StatefulSets, etc.
+
+Used for: Deployment, StatefulSet, DaemonSet, ReplicaSet
+
+Group name: apps
+
+Version: v1 (stable version)
+
+apiVersion: apps/v1
+kind: Deployment
+...
+
+
+✅ This group was created because managing workloads (replicas, rolling updates, etc.) is more complex, so they’re organized under the apps group.
+
+
+3. networking.k8s.io/v1 – API Group for Networking
+
+Used for: Ingress, NetworkPolicy
+
+Group name: networking.k8s.io
+
+Version: v1 (stable version)
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+...
+
+📡 This group handles how traffic flows in and out of your cluster, and how pods talk to each other securely.
+
+
+| apiVersion             | What it's for        | Examples                      |
+| ---------------------- | -------------------- | ----------------------------- |
+| `v1`                   | Core K8s resources   | `Pod`, `Service`, `ConfigMap` |
+| `apps/v1`              | Workload controllers | `Deployment`, `StatefulSet`   |
+| `networking.k8s.io/v1` | Networking resources | `Ingress`, `NetworkPolicy`    |
+
+
+
+
+so this raise a good question
+
+✅ What are Kubernetes APIs?
+------------------------------
+Kubernetes is built entirely around APIs (Application Programming Interfaces).
+These APIs define what kinds of objects you can create (like Pods, Services, Deployments), and how to interact with them (create, update, delete, etc.).
+
+Think of it like this:
+
+🧱 The Kubernetes API is like a menu in a restaurant. It tells you what you can order (resource types) and how to order them (the API version and fields).
+
+🎯 What Does a Kubernetes API Do?
+====================================
+
+Let’s say you want to create a Deployment to run your Angular app. You write a YAML file like this:
+
+apiVersion: apps/v1
+kind: Deployment
+...
+
+When you run kubectl apply -f my-deployment.yaml, Kubernetes:
+
+	1. Reads the apiVersion to figure out which API group and version to use (apps/v1 in this case).
+
+	2. Reads the kind to know what type of resource you want (Deployment).
+
+	3. Uses the Kubernetes API server to create that resource.
+
+
+🧩 Kubernetes APIs Are Organized by:
+
+1. Group – Groups of similar resources
+Examples:
+
+core (no prefix, used by v1)
+
+apps (used for workloads like Deployments)
+
+batch (for Jobs, CronJobs)
+
+networking.k8s.io (for Ingress, NetworkPolicy)
+
+2. Version – Indicates how stable or mature the API is
+
+Examples:
+
+v1 = stable
+
+v1beta1 = testing/new features
+
+
+✅ Examples of Kubernetes APIs
+---------------------------------
+
+
+| Resource Kind | API Group                 | Version | apiVersion used in YAML        |
+| ------------- | ------------------------- | ------- | ------------------------------ |
+| Pod           | core                      | v1      | `v1`                           |
+| Deployment    | apps                      | v1      | `apps/v1`                      |
+| Ingress       | networking.k8s.io         | v1      | `networking.k8s.io/v1`         |
+| Job           | batch                     | v1      | `batch/v1`                     |
+| Role          | rbac.authorization.k8s.io | v1      | `rbac.authorization.k8s.io/v1` |
+
+
+finally:
+
+Kubernetes is built using multiple APIs, and each API group exposes specific Kubernetes objects like Pod, Service, Deployment, Ingress, etc.
+That's why we specify apiVersion and kind at the beginning of a Kubernetes YAML file — to tell Kubernetes which API group and which type of object we're defining.
+
+
