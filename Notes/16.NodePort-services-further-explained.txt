@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-frontend-service
+  labels:
+    app: angular-frontend
+spec:
+  type: NodePort
+  selector:
+    app: angular-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30001
+
+
+according to this service class:
+
+Here’s how it flows:
+
+1. You type http://<NodeIP>:30001 in your browser.
+
+2. That request hits NodePort 30001 on your Kubernetes node.
+
+3. Kubernetes sees that NodePort maps to a Service.
+
+4. The Service forwards that to a Pod matching the label.
+
+5. Inside the Pod, the request is sent to port 80 of the container.
+
+6. That’s why all 3 ports (nodePort, port, and targetPort) matter.

@@ -1,0 +1,189 @@
+1. How to Restart a pod:
+	
+To restart a pod in Kubernetes, you cannot restart a pod directly — because Kubernetes doesn't support a direct "restart" command for pods. But you can force a restart in a few common ways:
+
+✅ Option 1: Delete the Pod (K8s will recreate it automatically)
+
+If the pod is part of a Deployment, ReplicaSet, etc., just delete it:
+
+	" kubectl delete pod <pod-name> "
+
+
+✅ Option 2: Restart the Deployment (affects all pods in it)
+
+This forces a restart of all pods in the deployment:
+
+	" kubectl rollout restart deployment <deployment-name> "
+
+ex: kubectl rollout restart deployment backend-deployment
+
+✅ Option 3: Touch the Deployment (change label to trigger new pod)
+If you can't use rollout restart, manually update a field:
+
+kubectl patch deployment <deployment-name> -p \
+  "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"$(date +%s)\"}}}}}"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. How to check logs of a pod:
+
+	" kubectl logs <pod name>"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. what is meant by kubectl exec command?:
+
+🧠 What does kubectl exec mean?
+
+kubectl exec lets you run a command inside a running pod — just like opening a terminal inside a Docker container.
+
+💡 Think of it like this:
+You're saying:
+👉 "Hey Kubernetes, I want to execute something inside that pod."
+
+
+Common Example:
+
+kubectl exec -it my-pod-name -- bash
+
+What this does:
+kubectl exec: Run a command inside a pod.
+
+-it: Makes it interactive, like a real terminal.
+
+my-pod-name: Replace this with the actual name of your pod.
+
+-- bash: Start a bash shell inside the pod.
+
+This opens a terminal inside your pod, so you can check logs, files, run curl, debug issues, etc.
+
+
+another example:
+
+	" kubectl exec -it <postgres-pod-name> -- psql -U <your-db-user> "
+
+
+BreakDown:
+
+| Part                  | What it does                                                            |
+| --------------------- | ----------------------------------------------------------------------- |
+| `kubectl exec`        | Run a command inside a Kubernetes pod                                   |
+| `-it`                 | Interactive mode with a terminal                                        |
+| `<postgres-pod-name>` | Replace this with the name of your **PostgreSQL pod**                   |
+| `--`                  | Separates `kubectl` options from the command you want to run in the pod |
+| `psql`                | Starts the **PostgreSQL command-line client**                           |
+| `-U <your-db-user>`   | Tells `psql` which **database user** to connect as                      |
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Tunneling
+
+🚇 What is Tunneling in Kubernetes (with Minikube)?
+
+💡 Problem:
+
+In Kubernetes (especially with Minikube), services of type NodePort or ClusterIP are not directly accessible from your host machine (like your Windows laptop).
+
+Why? Because:
+
+ClusterIP services are internal to the cluster.
+
+NodePort exposes a port, but in Minikube, the cluster runs inside a VM or Docker container — not directly on your host.
+
+So, even if your service is running on NodePort 30002, your laptop doesn't know where to send the request without help.
+
+
+🚪 Solution: Tunneling
+
+➜ minikube service <service-name> does 3 things:
+
+Finds the Service
+
+Starts a tunnel from your laptop to the internal Minikube node
+
+Opens the browser to access the service from your laptop
+
+This tunnel connects your host (e.g. Windows) to the internal IP or port of the service inside the Minikube cluster.
+
+---------------------------------------
+Clearing confusions about this topic :
+---------------------------------------
+
+🔍 First, What is Minikube Really Doing?
+==========================================
+
+When you run Kubernetes on your local machine using Minikube, it doesn't run the cluster directly on your Windows operating system.
+
+Instead, it creates a VM or Docker container that acts like a mini Linux server inside your machine.
+
+So your Kubernetes Pods, Services, etc., are living inside that mini Linux world — not directly on your real machine.
+
+
+🖥️ Analogy Time:
+=================
+
+Imagine this:
+
+🏠 Your Windows PC is your house
+
+📦 Minikube is a secure box inside your house (a VM or container)
+
+🐳 Kubernetes is running inside that box
+
+📞 Your browser wants to talk to a service (like a web server) inside the box
+
+But here's the problem:
+
+The box has its own network and doesn’t share ports with your house (your Windows OS) by default.
+
+
+🛑 Why You Can’t Access NodePort Directly:
+============================================
+
+Even if a service is exposed on NodePort 30002 inside the box, your Windows machine doesn’t automatically know:
+
+Where that port is
+
+How to reach into the box
+
+Because the NodePort is only exposed to the virtual machine's IP, not directly to your PC.
+
+So when you try http://localhost:30002, your browser asks your Windows OS:
+
+“Hey, is anything running on this port?”
+
+And Windows says:
+
+❌ “Nope, not here!”
+
+Because the service is running inside the VM, not on your real host network.
+
+
+🧑‍💻 Do All Kubernetes Users Have to Tunnel?
+===========================================
+
+Only if:
+
+They're running Kubernetes inside a VM or Docker (like Minikube, KIND, Docker Desktop)
+
+Not if:
+
+They're using a real cloud Kubernetes cluster (e.g. AWS EKS, GCP GKE, Azure AKS)
+
+In the cloud:
+
+The nodes are real servers with public IPs
+
+NodePorts and LoadBalancers are reachable without tunneling
+
+
+💡 Summary
+
+Minikube runs in a separate VM or Docker, with its own network.
+
+Your Windows host can’t access NodePort/ClusterIP directly from your browser.
+
+minikube service creates a tunnel to connect your Windows machine to services inside the VM.
+
+Cloud Kubernetes doesn’t need this because the cluster runs on public IPs.

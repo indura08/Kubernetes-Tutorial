@@ -1,0 +1,14 @@
+When springboot throws an erro says that it cannot connect to the db just because of there is no database called <database name> just do this in k8s
+
+1. connect to the postgres pod's terminal by:
+
+	" kubectl exec -it <postgres-pod-name> -- psql -U <your-db-user> "
+
+2. then check there is no database called <database name> by:
+
+	" \l "
+
+3. then create the particular database inside that pods datatbase by:
+
+	" create database devpsPractice "
+

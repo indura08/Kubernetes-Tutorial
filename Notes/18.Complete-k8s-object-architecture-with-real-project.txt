@@ -1,0 +1,124 @@
+Great! Let's go step by step and explain the entire Kubernetes architecture behind your project using:
+
+🔧 Spring Boot Backend (runs on port 8080)
+
+🌐 Angular Frontend (runs on port 4200)
+
+I'll include every major Kubernetes object and explain what each one does using your actual project — no abstract analogies, only real usage.
+
+🧱 Kubernetes Architecture for Your Project
+===========================================
+
+🔹 1. Cluster
+-----------------
+
+A Kubernetes cluster is the entire system that runs your applications.
+
+It contains nodes (usually virtual machines).
+
+You are using Minikube, so it creates one node cluster on your machine.
+
+🔹 2. Node
+------------
+
+A node is where your apps actually run.
+
+Inside the node, pods run.
+
+Since you're using Minikube → it creates one node in a Docker container or VM on Windows.
+
+
+🔹 3. Pods
+------------
+
+A Pod is the smallest deployable unit.
+
+It holds 1 container (your app) or sometimes multiple containers (rare in your case).
+
+So in your project:
+
+
+| App              | Pod Name (example)          | Container inside                                |
+| ---------------- | --------------------------- | ----------------------------------------------- |
+| Spring Boot API  | `backend-deployment-xxxxx`  | Runs `indura08/devops-revision-project:backend` |
+| Angular Frontend | `frontend-deployment-yyyyy` | Runs `your-angular-image`                       |
+
+
+🔹 4. Deployments
+-------------------
+
+A Deployment is a Kubernetes object that manages Pods.
+
+It ensures:
+
+Pods are always running
+
+Automatically restarts if pods crash
+
+You can scale (e.g., 2 replicas)
+
+
+🔹 5. Services
+----------------
+
+Services expose your Pods so other apps or users can access them.
+
+according to my service files:
+
+This means:
+
+Your frontend is accessible via NodePort 30001
+
+Your backend is accessible via NodePort 30002
+
+But in Minikube, to actually open these ports, you use:
+
+minikube service angular-frontend
+minikube service spring-backend
+
+
+Because Minikube runs in a VM, and NodePorts don’t expose services to Windows without tunneling.
+
+
+🔹 6. ConfigMaps & Secrets (optional but useful)
+----------------------------------------------------
+
+You can use ConfigMaps to store environment variables like API URLs, DB URLs.
+
+You can use Secrets to store passwords, tokens securely.
+
+Not mandatory, but helpful when you want to separate config from code.
+
+
+🔹 7. Ingress (optional if you want cleaner URLs)
+---------------------------------------------------
+
+You can define an Ingress to manage URLs like:
+
+http://localhost/frontend
+
+http://localhost/api
+
+It routes requests to the correct service (frontend or backend) based on the path.
+
+But Ingress needs an Ingress Controller, so it's an advanced topic.
+
+
+✅ Final Summary: Architecture Layout
+=======================================
+
+Kubernetes Cluster (Minikube)
+└── Node (Minikube VM or Docker)
+    ├── Deployment: backend-deployment
+    │   └── Pod(s) (2x) -> Spring Boot container
+    ├── Deployment: frontend-deployment
+    │   └── Pod (1x) -> Angular container
+    ├── Service: spring-backend (NodePort 30002)
+    └── Service: angular-frontend (NodePort 30001)
+
+
+Everything is inside the node, which is inside the Minikube cluster.
+Minikube tunnels ports to let your Windows browser access services inside the node.
+
+
+
